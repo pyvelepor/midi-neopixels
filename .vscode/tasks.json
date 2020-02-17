@@ -1,0 +1,50 @@
+﻿{
+    "version":  "2.0.0",
+    "tasks":  [
+                  {
+                      "label":  "detect circuitpython",
+                      "type":  "shell",
+                      "command":  "./scripts/detect-circuitpythons.ps1",
+                      "problemMatcher":  [
+
+                                         ]
+                  },
+                  {
+                      "label":  "deploy",
+                      "type":  "shell",
+                      "command":  "./scripts/deploy.ps1",
+                      "args":  [
+                                   "-destination",
+                                   "${input:circuitpythons}",
+                                   "-source",
+                                   "${input:sourceFile}"
+                               ],
+                      "problemMatcher":  [
+
+                                         ],
+                      "dependsOn":  [
+                                        "detect circuitpython"
+                                    ]
+                  }
+              ],
+    "inputs":  [
+                   {
+                       "id":  "circuitpythons",
+                       "type":  "pickString",
+                       "options":  [
+                                       "CIRCUITPY (E:)"
+                                   ],
+                       "default":  "CIRCUITPY (E:)",
+                       "description":  "Selecct which CircuitPython to deploy to."
+                   },
+                   {
+                       "id":  "sourceFile",
+                       "type":  "pickString",
+                       "options":  [
+                                       "central.py",
+                                       "peripheral.py"
+                                   ],
+                       "description":  "Select Which file to deploy to CircuitPython"
+                   }
+               ]
+}
